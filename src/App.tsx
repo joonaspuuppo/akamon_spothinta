@@ -1,6 +1,7 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import PriceDisplay from './components/PriceDisplay';
+import React from 'react'
+import { useState, useEffect } from 'react'
+import BarGraph from './components/BarGraph'
+import PriceDisplay from './components/PriceDisplay'
 
 function App() {
   const [priceData, setPriceData] = useState([])
@@ -15,9 +16,8 @@ function App() {
       setPriceData(data)
       console.log(data)
     })
+    .catch(error => console.log(error))
   }, [])
-
-
 
   return (
     <div className="App">
@@ -27,9 +27,9 @@ function App() {
         <PriceDisplay description="Kallein tunti" time={highestPrice.time} price={highestPrice.price} />
         <PriceDisplay description="Keskiarvo" price={avgPrice} />
       </div>
-      <p>Graafi tulee tähän</p>
+      <BarGraph />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
