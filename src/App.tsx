@@ -24,7 +24,7 @@ function App() {
   const [avgPrice, setAvgPrice] = useState(0)
 
   useEffect( () => {  
-    
+
     // On page load: fetch price data, extract price and time, calculate min & max & avg prices.
     fetch("./spot-data.json")
     .then(res => res.json())
@@ -69,7 +69,7 @@ function App() {
         <PriceDisplay description="Kallein tunti" time={highestPrice.time} price={highestPrice.price} />
         <PriceDisplay description="Keskiarvo" price={avgPrice} />
       </div>
-      <BarGraph />
+      <BarGraph priceData={priceData} />
     </div>
   )
 }
