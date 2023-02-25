@@ -26,13 +26,16 @@ function App() {
   useEffect( () => {  
 
     // On page load: fetch price data, extract price and time, calculate min & max & avg prices.
+    let subscribed = true
     fetch("./spot-data.json")
     .then(res => res.json())
     .then(data => {
-      setDate(new Date(data[0].timestamp).toLocaleDateString("fi-FI"))
-      const transformedData = handlePriceData(data)
-      setPriceData(transformedData)
-      calculateMinMaxAvg(transformedData)
+      if (subscribed) {
+        setDate(new Date(data[0].timestamp).toLocaleDateString("fi-FI"))
+        const transformedData = handlePriceData(data)
+        setPriceData(transformedData)
+        calculateMinMaxAvg(transformedData)
+      }
     })
     .catch(error => console.log(error))
 
@@ -73,6 +76,10 @@ function App() {
       // calculating average price
       const sumOfPrices = sortedPriceData.reduce((partialSum, a) => partialSum + a.price, 0)
       setAvgPrice(parseFloat((sumOfPrices / sortedPriceData.length).toFixed(2)))
+    }
+    
+    return () => {
+      subscribed = false
     }
   }, [])
 
