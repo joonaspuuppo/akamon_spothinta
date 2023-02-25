@@ -8,6 +8,11 @@ body {
   text-align: center;
 }
 
+h1 {
+  margin-bottom: 1em;
+  font-weight: normal;
+}
+
 .priceDisplay {
   background-color: lightgray;
   padding: 0em 2em;
