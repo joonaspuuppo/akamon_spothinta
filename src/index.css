@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 1em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,17 +11,50 @@ body {
 #priceDisplays {
   display: flex;
   justify-content: space-evenly;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .priceDisplay {
   background-color: gray;
   padding: 1em;
-  width: 8em;
+  width: 10em;
   
 }
 
-#priceGraph {
+#verticalPriceGraph {
+  display: block;
+  margin: auto;
+  max-width: 1000px;
   margin-top: 2em;
-} 
+}
 
+#horizontalPriceGraph {
+  display: none;
+}
 
+@media only screen and (max-width: 600px) {
+
+  #priceDisplays {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .priceDisplay {
+    display: flex;
+    width: auto;
+    justify-content: center;
+    gap: 1em;
+    padding: 0.5em;
+  }
+
+  #verticalPriceGraph {
+    display: none;
+  }
+  
+  #horizontalPriceGraph {
+    display: block;
+    margin-top: 2em;
+    height: 800px;
+  }
+}

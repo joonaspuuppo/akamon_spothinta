@@ -22,6 +22,7 @@ function App() {
   const [lowestPrice, setLowestPrice] = useState({price: 0, time: "00:00"})
   const [highestPrice, setHighestPrice] = useState({price: 0, time: "00:00"})
   const [avgPrice, setAvgPrice] = useState(0)
+  const [date, setDate] = useState("")
 
   useEffect( () => {  
 
@@ -29,6 +30,7 @@ function App() {
     fetch("./spot-data.json")
     .then(res => res.json())
     .then(data => {
+      setDate(new Date(data[0].timestamp).toLocaleDateString("fi-FI"))
       const transformedData = handlePriceData(data)
       setPriceData(transformedData)
       calculateMinMaxAvg(transformedData)
@@ -44,9 +46,11 @@ function App() {
       // getting HH:MM from timestamp
       const times = priceData.map(elem => elem.timestamp.substring(11, 16))
 
+      // creating new array of {price, time} objects
       const transformedData = transformedPrices.map((price, i) => ({price, time: times[i]}))
       
-      return transformedData
+      // returning data sorted in chronological order
+      return transformedData.sort((a, b) => (a.time > b.time) ? 1 : -1)
     }
 
     const calculateMinMaxAvg = (priceData: Array<TransformedPriceDataType>) => {
@@ -61,17 +65,27 @@ function App() {
     }
   }, [])
 
-  return (
-    <div className="App">
-      <h1>Spot-hinta</h1>
-      <div id="priceDisplays">
-        <PriceDisplay description="Halvin tunti" time={lowestPrice.time} price={lowestPrice.price} />
-        <PriceDisplay description="Kallein tunti" time={highestPrice.time} price={highestPrice.price} />
-        <PriceDisplay description="Keskiarvo" price={avgPrice} />
+  if (priceData.length > 0) {
+    return (
+      <div className="App">
+        <h1>Sähkön spot-hinta {date} </h1>
+        <div id="priceDisplays">
+          <PriceDisplay description="Halvin tunti" time={lowestPrice.time} price={lowestPrice.price} />
+          <PriceDisplay description="Kallein tunti" time={highestPrice.time} price={highestPrice.price} />
+          <PriceDisplay description="Keskiarvo" price={avgPrice} />
+        </div>
+        <BarGraph priceData={priceData} isVertical={true} />
+        <BarGraph priceData={priceData} isVertical={false} />
       </div>
-      <BarGraph priceData={priceData} />
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="App">
+        <p>Spot-hintadataa ei saatavilla.</p>
+      </div>
+    )
+  }
+  
 }
 
 export default App
