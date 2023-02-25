@@ -9,7 +9,8 @@ body {
 }
 
 h1 {
-  margin-bottom: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 2em;
   font-weight: normal;
 }
 
@@ -33,6 +34,10 @@ h1 {
 
 #priceDisplays .priceDisplay:nth-child(2) {
   background-color: salmon;
+}
+
+.priceDisplay p:first-child {
+  font-weight: 600  ;
 }
 
 #verticalPriceGraph {
