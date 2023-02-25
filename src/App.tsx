@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import BarGraph from './components/BarGraph'
 import PriceDisplay from './components/PriceDisplay'
-import transformPrice from './utils/price'
 
 function App() {
 
@@ -40,17 +39,29 @@ function App() {
     const handlePriceData = (priceData: Array<PriceDataElementType>) => {
       const prices = priceData.map(elem => elem.price)
       
-      // MWh to kWh, eur to snt, add tax 10 %
+      // MWh to kWh, eur to snt, add 10 % tax
       const transformedPrices = prices.map(price => transformPrice(price))
 
-      // getting HH:MM from timestamp
-      const times = priceData.map(elem => elem.timestamp.substring(11, 16))
+      // getting HH.MM from timestamp
+      const times = priceData.map(elem => {
+        return new Date(elem.timestamp)
+        .toLocaleTimeString("fi-FI")
+        .slice(0, -3) // remove minutes
+        .padStart(5, "0") // add a leading zero if needed
+      })
 
       // creating new array of {price, time} objects
       const transformedData = transformedPrices.map((price, i) => ({price, time: times[i]}))
       
       // returning data sorted in chronological order
       return transformedData.sort((a, b) => (a.time > b.time) ? 1 : -1)
+    }
+
+    const transformPrice = (price: number) => {
+      const pricePerkWh = price / 1000
+      const priceInCents = pricePerkWh * 100
+      const priceWithTax = priceInCents * 1.1
+      return parseFloat(priceWithTax.toFixed(2))
     }
 
     const calculateMinMaxAvg = (priceData: Array<TransformedPriceDataType>) => {
