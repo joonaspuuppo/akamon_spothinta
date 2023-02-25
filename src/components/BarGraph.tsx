@@ -32,7 +32,9 @@ const BarGraph = ({priceData, isVertical, lowestPrice, highestPrice}:
     if (isVertical) {
         return (
             <div id="verticalPriceGraph">
-                <Bar data={data} />
+                <Bar data={data} options={{
+                    maintainAspectRatio: false
+                    }} />
             </div>
         )
     } else {
