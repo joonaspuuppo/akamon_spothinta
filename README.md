@@ -2,7 +2,7 @@
 Reactilla ja Typescriptillä toteutettu web-sovellus, joka näyttää sähkön spot-hinnan annetun vuorokauden ajalta.
 Kaavio luotu Chart.js- ja react-chartjs-2 -kirjastoja käyttäen.
 
-[Kuvakaappaus sovelluksesta](./sovellus_screenshot.png)
+![Kuvakaappaus sovelluksesta](./sovellus_screenshot.png)
 
 ## Ongelmakohtia ja ratkaisuja
 - En ollut aiemmin käyttänyt Chart.js-kirjastoa, joten aloitin tutustumalla sen dokumentaatioon.
