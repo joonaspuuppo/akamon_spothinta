@@ -74,8 +74,9 @@ function App() {
           <PriceDisplay description="Kallein tunti" time={highestPrice.time} price={highestPrice.price} />
           <PriceDisplay description="Keskiarvo" price={avgPrice} />
         </div>
-        <BarGraph priceData={priceData} isVertical={true} />
-        <BarGraph priceData={priceData} isVertical={false} />
+        {/* Vertical bar graph for desktop, horizontal for mobile */}
+        <BarGraph priceData={priceData} isVertical={true} lowestPrice={lowestPrice.price} highestPrice={highestPrice.price} />
+        <BarGraph priceData={priceData} isVertical={false} lowestPrice={lowestPrice.price} highestPrice={highestPrice.price} />
       </div>
     )
   } else {

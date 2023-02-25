@@ -7,12 +7,24 @@ interface TransformedPriceDataType {
     time: string
 }
 
-const BarGraph = ({priceData, isVertical}: {priceData: Array<TransformedPriceDataType>, isVertical: Boolean}) => {
+const BarGraph = ({priceData, isVertical, lowestPrice, highestPrice}: 
+    {priceData: Array<TransformedPriceDataType>, 
+     isVertical: Boolean,
+     lowestPrice: number,
+     highestPrice: number}) => {
     
     const data = {
         labels: priceData.map(e => e.time),
         datasets: [{
             label: "Spot-hinta snt/kWh",
+            backgroundColor: priceData.map(e => {
+                if (e.price === lowestPrice) {
+                    return "lightgreen"
+                } else if (e.price === highestPrice) {
+                    return "salmon"
+                } else return "lightblue"
+            } ),
+            borderRadius: 5,
             data: priceData.map(e => e.price)
         }]
     }

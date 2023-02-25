@@ -8,18 +8,26 @@ body {
   text-align: center;
 }
 
+.priceDisplay {
+  background-color: lightgray;
+  padding: 0em 2em;
+  border-radius: 1em;
+}
+
 #priceDisplays {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1em;
   max-width: 1000px;
   margin: auto;
 }
 
-.priceDisplay {
-  background-color: gray;
-  padding: 1em;
-  width: 10em;
-  
+#priceDisplays .priceDisplay:first-child {
+  background-color: lightgreen;
+}
+
+#priceDisplays .priceDisplay:nth-child(2) {
+  background-color: salmon;
 }
 
 #verticalPriceGraph {
